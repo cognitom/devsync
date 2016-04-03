@@ -12,6 +12,10 @@ const
     'README', 'README.*',
     'CHANGELOG', 'CHANGELOG.*',
     'LICENSE', 'LICENCE'
+  ],
+  defaultExcludes = [
+    'node_modules',
+    'npm-debug.log'
   ]
 
 module.exports = co.wrap(function* (options) {
@@ -19,7 +23,6 @@ module.exports = co.wrap(function* (options) {
     cwd = path.resolve(process.cwd(), options.cwd),
     target = path.resolve(process.cwd(), options.target),
     rsyncPath = yield which('rsync'),
-    ignoreFile = path.join(cwd, '.npmignore'),
     metaFile = path.join(cwd, 'package.json'),
     metaText = yield fsp.readFile(metaFile, 'utf8'),
     meta = JSON.parse(metaText),
@@ -37,29 +40,31 @@ module.exports = co.wrap(function* (options) {
     '--cvs-exclude' // auto-ignore files in the same way CVS does
   ]
 
+  /**
+   * Includes and excludes
+   * see https://docs.npmjs.com/files/package.json#files
+   * see https://docs.npmjs.com/misc/developers#keeping-files-out-of-your-package
+   */
   if (meta.files){
-    // see https://docs.npmjs.com/files/package.json#files
-    const includes = meta.files.concat(defaultIncludes)
     args = args
-      .concat(includes.map(file => `--include=${ file }`))
-      .concat(includes.map(file => `--include=${ file }/**`))
+      .concat(defaultIncludes.map(file => `--include=${ file }`))
+      .concat(meta.files.map(file => `--include=${ file }`))
+      .concat(meta.files.map(file => `--include=${ file }/**`))
       .concat('--exclude=*')
   } else {
-    // see https://docs.npmjs.com/misc/developers#keeping-files-out-of-your-package
+    args = args.concat(defaultExcludes.map(file => `--exclude=${ file }`))
     try {
-      yield fsp.access(ignoreFile, fsp.F_OK)
-      // only if the file exists...
       const
+        ignoreFile = path.join(cwd, '.npmignore'),
         ignoreText = yield fsp.readFile(ignoreFile, 'utf8'),
         ignore = ignoreText.split('\n').filter(file => file && file[0] != '#')
       args = args.concat(ignore.map(file => `--exclude=${ file }`))
-    } catch (err) { /* do nothing */ }
-    args = args.concat(
-      '--exclude=node_modules',
-      '--exclude=npm-debug.log'
-    )
+    } catch (err) { /* .npmignore not found */ }
   }
 
+  /**
+   * Rsync to each installed directory
+   */
   for (var dir of installed) {
     try {
       yield spawn(rsyncPath, args.concat(`${ cwd }/`, `${ dir }/`))
