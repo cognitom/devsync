@@ -14,6 +14,12 @@ Devsync might be useful in such a situation:
 ## Installation
 
 ```bash
+$ npm install -g cognitom/devsync
+```
+
+After some updates and reviews, we'll publish to npm, soon. Then,
+
+```bash
 $ npm install -g devsync
 ```
 
