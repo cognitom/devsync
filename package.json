@@ -1,9 +1,14 @@
 {
   "name": "devsync",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Syncing npm modules while development",
   "bin": "bin/devsync.js",
   "main": "index.js",
+  "files": [
+    "bin",
+    "lib",
+    "index.js"
+  ],
   "preferGlobal": true,
   "scripts": {
     "eslint": "eslint index.js lib/*.js bin/*.js",

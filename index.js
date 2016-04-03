@@ -25,7 +25,7 @@ module.exports = co.wrap(function* (options) {
     meta = JSON.parse(metaText),
     patterns = [
       `node_modules/${ meta.name }`, // check children
-      `*/node_modules/${ meta.name }`, // check grandchildren
+      `*/node_modules/${ meta.name }` // check grandchildren
     ],
     paths = yield globby(patterns, { cwd: target }),
     installed = paths.map(dir => path.resolve(target, dir))
@@ -46,7 +46,6 @@ module.exports = co.wrap(function* (options) {
       .concat('--exclude=*')
   } else {
     // see https://docs.npmjs.com/misc/developers#keeping-files-out-of-your-package
-    var ignoreExists = false
     try {
       yield fsp.access(ignoreFile, fsp.F_OK)
       // only if the file exists...
@@ -54,7 +53,7 @@ module.exports = co.wrap(function* (options) {
         ignoreText = yield fsp.readFile(ignoreFile, 'utf8'),
         ignore = ignoreText.split('\n').filter(file => file && file[0] != '#')
       args = args.concat(ignore.map(file => `--exclude=${ file }`))
-    } catch (err) {}
+    } catch (err) { /* do nothing */ }
     args = args.concat(
       '--exclude=node_modules',
       '--exclude=npm-debug.log'
