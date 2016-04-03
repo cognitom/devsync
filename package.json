@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Syncing npm modules while development",
   "main": "index.js",
+  "preferGlobal": true,
   "scripts": {
     "eslint": "eslint index.js lib/*.js bin/*.js",
     "test": "npm run eslint"
