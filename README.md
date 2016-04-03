@@ -1,6 +1,6 @@
 # Devsync
 
-Sync your npm library directly into the package which depends on it. If you're a developer of libraries, yes, `devsync` has been made for you!
+Sync your npm library directly into the package which depends on it. If you're a publisher of libraries on npm, yes, `devsync` has been made for you!
 
 ## Use case
 
@@ -47,9 +47,9 @@ $ devsync -w
 
 ## CLI options
 
-### --to / -t
+### --target / -t
 
-### --from / -f
+### --cwd / -c
 
 ### --watch / -w
 
