@@ -60,7 +60,7 @@ const
   devsync = require('devsync')
 
 devsync({
-  from: 'absolute/path/to/your-library',
-  to: 'absolute/path/to/your-app'
+  cwd: 'path/to/your-library',
+  target: 'path/to/your-app'
 })
 ```
