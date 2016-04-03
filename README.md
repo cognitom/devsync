@@ -6,7 +6,7 @@ Sync your own npm library directly into the package which depends on it. If you'
 
 ## Use case
 
-Devsync might be useful in such a situation:
+Devsync might be useful in such a case:
 
 - You have a main application `your-app`
 - `your-app` has a dependency to `your-library`

@@ -14,7 +14,7 @@ const
 
 if (options.watch) {
   chokidar.watch(options.cwd, {
-    ignored: []
+    ignored: [] // TODO: ignore some files
   }).on('all', (e, p) => {
     console.log(`Update detected: ${ p }`)
     devsync(options)
