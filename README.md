@@ -1,6 +1,8 @@
 # Devsync
 
-Sync your npm library directly into the package which depends on it. If you're a publisher of libraries on npm, yes, `devsync` has been made for you!
+Sync your own npm library directly into the package which depends on it. If you're a publisher of libraries on npm, yes, `devsync` has been made for you!
+
+![concept](concept.png)
 
 ## Use case
 
