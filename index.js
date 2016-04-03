@@ -5,22 +5,30 @@ const
   spawn = require('./lib/spawn'),
   which = require('./lib/which')
 
-module.exports = (options, meta) => {
+module.exports = (options) => {
+  const
+    cwd = path.resolve(process.cwd(), options.cwd),
+    target = path.resolve(process.cwd(), options.target)
+
   var installed = []
-  return glob(`node_modules/${ meta.name }`, { cwd: options.to })
+  return fsp.readFile(path.join(cwd, 'package.json'), 'utf8')
+    .then(metatext => {
+      const meta = JSON.parse(metatext)
+      return glob(`node_modules/${ meta.name }`, { cwd: target })
+    })
     .then(paths => {
       installed = paths
       return which('rsync')
     })
-    .then(rsyncPath => Promise.all(installed.map(to => {
+    .then(rsyncPath => Promise.all(installed.map(dir => {
       var args = [
         '--recursive', // recurse into directories
         '--delete', // delete extraneous files from dest dirs
         '--delete-excluded', // also delete excluded files from dest dirs
         '--cvs-exclude', // auto-ignore files in the same way CVS does
         '--exclude=node_modules',
-        `"${ options.from }/"`,
-        `"${ to }/"`
+        `"${ cwd }/"`,
+        `"${ dir }/"`
       ]
       return spawn(rsyncPath, args)
     })))
