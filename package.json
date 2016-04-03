@@ -1,7 +1,8 @@
 {
   "name": "devsync",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Syncing npm modules while development",
+  "bin": "bin/devsync.js",
   "main": "index.js",
   "preferGlobal": true,
   "scripts": {
