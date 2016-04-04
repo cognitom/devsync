@@ -68,7 +68,7 @@ module.exports = co.wrap(function* (options) {
   for (var dir of installed) {
     try {
       yield spawn(rsyncPath, args.concat(`${ cwd }/`, `${ dir }/`))
-      console.log(dir)
+      if (!options.silent) console.log(dir)
     } catch (err) {
       console.log(err.toString())
     }

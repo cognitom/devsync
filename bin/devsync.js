@@ -9,7 +9,8 @@ const
   options = cli.parse({
     cwd: ['c', 'Path to the library', 'file', './'],
     target: ['t', 'Path to the package(s) which has dependency', 'file', '../'],
-    watch: ['w', 'Watch the library']
+    watch: ['w', 'Watch the library'],
+    silent: ['s', 'Be quiet']
   })
 
 if (options.watch) {
