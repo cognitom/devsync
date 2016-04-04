@@ -14,12 +14,15 @@ const
       .then(() => resolve(true))
       .catch(() => resolve(false))
   }),
-  cleanUp = () => {
-    const pattern = [
-      'node_modules/your-library/**',
-      '!node_modules/your-library'
-    ]
-    return del(pattern, { cwd: appDir })
+  cleanUp = async () => {
+    const
+      pattern = [
+        'node_modules/your-library/**',
+        '!node_modules/your-library'
+      ],
+      gitkeep = path.join(appDir, 'node_modules/your-library/.gitignore')
+    await del(pattern, { cwd: appDir })
+    await fsp.writeFile(gitkeep, '', 'utf8')
   }
 
 test.afterEach(t => cleanUp())
