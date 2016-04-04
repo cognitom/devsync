@@ -1,6 +1,6 @@
 # Devsync
 
-Sync your own npm library directly into the package which depends on it. If you're a publisher of libraries on npm, yes, `devsync` has been made for you!
+Sync your own npm library directly into the package which depends on it. This is like `npm link` but no symlink and temporally.
 
 ![concept](concept.png)
 
@@ -15,8 +15,10 @@ Devsync might be useful in such a case:
 
 ## Installation
 
+via GitHub
+
 ```bash
-$ npm install -g devsync
+$ npm install -g cognitom/devsync
 ```
 
 ## Usage
