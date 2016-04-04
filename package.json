@@ -1,6 +1,6 @@
 {
   "name": "devsync",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Syncing npm modules while development",
   "bin": "bin/devsync.js",
   "main": "index.js",
@@ -11,8 +11,9 @@
   ],
   "preferGlobal": true,
   "scripts": {
+    "ava": "ava test/*.js",
     "eslint": "eslint index.js lib/*.js bin/*.js",
-    "test": "npm run eslint"
+    "test": "npm run eslint && npm run ava"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,8 @@
     "npm-which": "^2.0.0"
   },
   "devDependencies": {
+    "ava": "^0.13.0",
+    "del": "^2.2.0",
     "eslint": "^2.6.0"
   }
 }

@@ -1,0 +1,8 @@
+{
+  "name": "your-library",
+  "version": "1.0.0",
+  "description": "Your awesome library",
+  "files": ["index.js", "lib"],
+  "main": "index.js",
+  "author": "You!"
+}
